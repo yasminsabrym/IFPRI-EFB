@@ -1,11 +1,8 @@
+'use client';
+
 import type {Metadata} from 'next';
 import './globals.css';
 import {useEffect, useState} from 'react';
-
-export const metadata: Metadata = {
-  title: 'Data-Driven Hope',
-  description: 'Interactive Touchscreen Exhibition',
-};
 
 export default function RootLayout({children}: { children: React.ReactNode }) {
   const [videoLoaded, setVideoLoaded] = useState(false);
@@ -44,3 +41,4 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
     </html>
   );
 }
+
