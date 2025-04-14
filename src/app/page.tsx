@@ -1,9 +1,8 @@
-
 'use client';
 
 import React, {useEffect} from 'react';
 import {useRouter} from 'next/navigation';
-import {motion} from 'framer-motion'; // Import framer-motion
+import {motion} from 'framer-motion';
 
 const SplashPage = () => {
   const router = useRouter();
@@ -71,5 +70,3 @@ const SplashPage = () => {
 };
 
 export default SplashPage;
-
-    
