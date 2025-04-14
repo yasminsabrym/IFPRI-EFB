@@ -16,9 +16,19 @@ const SplashPage = () => {
   }, [router]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen text-white">
-      <h1 className="text-5xl font-semibold mb-4">WANT TO KNOW HOW WE MEASURE SUCCESS?</h1>
-      <p className="text-2xl">Tap to explore our Impact</p>
+    <div className="flex flex-col items-center justify-center min-h-screen text-white p-6">
+      <h1 className="text-4xl md:text-5xl font-semibold mb-4 text-center">WANT TO KNOW HOW WE MEASURE SUCCESS?</h1>
+      <p className="text-xl md:text-2xl text-center">Tap to explore our Impact</p>
+      <div
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        style={{
+          width: '200px',
+          height: '200px',
+          borderRadius: '50%',
+          backgroundColor: '#F2F5FA',
+          opacity: 0.1,
+        }}
+      />
     </div>
   );
 };
