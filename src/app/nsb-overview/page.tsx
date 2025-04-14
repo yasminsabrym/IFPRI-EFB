@@ -143,7 +143,8 @@ const NSBOverview = () => {
             }}
           />
         </RadarChart>
-        <div className="text-sm text-gray-400 text-center">
+        {/* Updated text color for better visibility */}
+        <div className="text-sm text-gray-300 text-center">
           • Baseline (Grey line) • Control Group Mid-Term (Red line) • NSB Mid-Term (Green line)
           <br />
           Tap any metric on the chart to learn more.
