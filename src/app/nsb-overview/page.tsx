@@ -12,8 +12,10 @@ import {
   PolarRadiusAxis,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from 'recharts';
 import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription} from '@/components/ui/dialog';
+import {motion} from 'framer-motion';
 
 const data = [
   {
@@ -56,36 +58,61 @@ const data = [
 const metricDetails = {
   HDDS: {
     title: 'HDDS (Household Dietary Diversity Score)',
-    description: `The Household Dietary Diversity Score (HDDS) counts how many different food groups a household consumes. It ranges from 0 (no variety) to 12 (high variety). A higher HDDS means better diet quality and typically indicates greater economic access to food. When inflation rises, diet diversity often suffers.
-
+    description: `What It Is:
+    The Household Dietary Diversity Score (HDDS) counts how many different food groups a household consumes. It ranges from 0 (no variety) to 12 (high variety).
+    
+    Why It Matters:
+    A higher HDDS means better diet quality and typically indicates greater economic access to food. When inflation rises, diet diversity often suffers.
+    
+    NSB Results vs. Control:
     • Control changed by -0.64 points from baseline, while NSB increased by +0.87.
     • Net difference = +1.51 points, a 15.6% improvement for NSB families.`,
   },
   FIES: {
     title: 'FIES (Food Insecurity Experience Scale)',
-    description: `The Food Insecurity Experience Scale (FIES) runs 0 to 8, where a higher score means more severe insecurity. It is based on self-reported experiences like skipping meals or running out of food. FIES captures the stress and uncertainty of accessing enough safe, nutritious food. Even if a household has some variety, anxiety or shortfalls indicate insecurity.
-
+    description: `What It Is:
+    The Food Insecurity Experience Scale (FIES) runs 0 to 8, where a higher score means more severe insecurity. It is based on self-reported experiences like skipping meals or running out of food.
+    
+    Why It Matters:
+    FIES captures the stress and uncertainty of accessing enough safe, nutritious food. Even if a household has some variety, anxiety or shortfalls indicate insecurity.
+    
+    NSB Results vs. Control:
     • Control's FIES rose by +0.71, while NSB families dropped by -1.20.
     • Net difference = -1.91 (36% improvement).`,
   },
   'Energy Intake': {
     title: 'Energy Intake (kcal/day)',
-    description: `Total daily calories consumed by the main female adult, measured by a 24-hour recall of all meals and ingredients. Sufficient energy intake is crucial to prevent undernourishment, especially during economic shocks. When staple prices spike, people often reduce total calories.
-
+    description: `What It Is:
+    Total daily calories consumed by the main female adult, measured by a 24-hour recall of all meals and ingredients.
+    
+    Why It Matters:
+    Sufficient energy intake is crucial to prevent undernourishment, especially during economic shocks. When staple prices spike, people often reduce total calories.
+    
+    NSB Results vs. Control:
     • Control decreased by -154 kcal/day, whereas NSB gained +352 kcal/day.
     • Net difference = +506 kcal/day (30.2% higher).`,
   },
   'Protein Intake': {
     title: 'Protein Intake (g/day)',
-    description: `Protein intake measures grams of protein consumed by the main female adult in the past 24 hours. Adequate protein is critical for muscle maintenance, immune function, and childbearing health. Inflation usually makes protein-rich foods less accessible.
-
+    description: `What It Is:
+    Protein intake measures grams of protein consumed by the main female adult in the past 24 hours.
+    
+    Why It Matters:
+    Adequate protein is critical for muscle maintenance, immune function, and childbearing health. Inflation usually makes protein-rich foods less accessible.
+    
+    NSB Results vs. Control:
     • Control dropped by -13.9 g/day, while NSB rose by +24.6 g/day.
     • Net difference = +38.5 g/day, a 59.7% improvement.`,
   },
   'Iron Intake': {
     title: 'Iron Intake (mg/day)',
-    description: `Iron is key to preventing anemia. We measure daily iron consumption via detailed dietary recall for the main female adult in the household. Iron deficiency leads to serious health risks, especially for women of childbearing age. In times of inflation, iron-rich foods become harder to afford.
-
+    description: `What It Is:
+    Iron is key to preventing anemia. We measure daily iron consumption via detailed dietary recall for the main female adult in the household.
+    
+    Why It Matters:
+    Iron deficiency leads to serious health risks, especially for women of childbearing age. In times of inflation, iron-rich foods become harder to afford.
+    
+    NSB Results vs. Control:
     • Control group changed by -1.82 mg/day, while NSB increased by +3.87 mg/day.
     • Net difference = +5.69 mg/day (66% improvement).`,
   },
@@ -101,48 +128,97 @@ const NSBOverview = () => {
     setOpen(true);
   };
 
+  const containerVariants = {
+    hidden: {opacity: 0},
+    visible: {
+      opacity: 1,
+      transition: {
+        delay: 0.3,
+        duration: 0.8,
+        ease: 'easeInOut',
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {duration: 0.4},
+    },
+  };
+
+  const chartVariants = {
+    hidden: {scale: 0.5, opacity: 0},
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+        damping: 20,
+        delay: 0.5,
+      },
+    },
+  };
+
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen p-4 md:p-8 text-white">
-      <h1 className="text-2xl md:text-3xl font-semibold mb-4 text-center">
+    <motion.div
+      className="flex flex-col items-center justify-start min-h-screen p-4 md:p-8 text-white"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
+      <motion.h1
+        className="text-2xl md:text-3xl font-semibold mb-4 text-center"
+        style={{color: '#FF6301'}}
+        initial={{y: -50, opacity: 0}}
+        animate={{y: 0, opacity: 1, transition: {duration: 0.8, delay: 0.3}}}
+      >
         Nutrition-Sensitive Box: Protecting Food Security
-      </h1>
-      <div className="bg-gray-100 bg-opacity-20 rounded-lg p-3 md:p-4 mb-6 w-full max-w-2xl">
-        <p className="text-base md:text-lg text-center">
+      </motion.h1>
+      <motion.div
+        className="bg-gray-100 bg-opacity-20 rounded-lg p-3 md:p-4 mb-6 w-full max-w-2xl"
+        initial={{opacity: 0}}
+        animate={{opacity: 0.8, transition: {duration: 0.8, delay: 0.5}}}
+      >
+        <p className="text-base md:text-lg text-center" style={{color: '#F2F5FA'}}>
           Facing high inflation, our Nutrition-Sensitive Box (NSB) was designed to go beyond staples by including
           protein- and iron-rich foods. This approach helps families maintain dietary quality and overall food
           security, even as prices soar.
         </p>
-      </div>
+      </motion.div>
 
       <div className="w-full max-w-md md:max-w-xl">
         {/* Interactive Spider Chart */}
-        <RadarChart width={500} height={400} data={data} cx="50%" cy="50%" outerRadius="80%">
-          <PolarGrid />
-          <PolarAngleAxis dataKey="subject" stroke="#fff" onClick={(e) => handleSpokeClick(e.value)} />
-          <PolarRadiusAxis angle={30} domain={[0, 'dataMax']} stroke="#fff" />
-          <Radar
-            name="Baseline"
-            dataKey="Baseline"
-            stroke="#999999"
-            fill="#999999"
-            fillOpacity={0.6}
-          />
-          <Radar
-            name="Control"
-            dataKey="Control"
-            stroke="#EE6363"
-            fill="#EE6363"
-            fillOpacity={0.6}
-          />
-          <Radar name="NSB" dataKey="NSB" stroke="#44BBA4" fill="#44BBA4" fillOpacity={0.6} />
-          <Tooltip />
-          <Legend
-            wrapperStyle={{
-              paddingTop: '20px',
-              color: '#777',
-            }}
-          />
-        </RadarChart>
+        <motion.div variants={chartVariants} initial="hidden" animate="visible">
+          <ResponsiveContainer width="100%" height={400}>
+            <RadarChart data={data} cx="50%" cy="50%" outerRadius="80%">
+              <PolarGrid gridType="circle" stroke="#555555" />
+              <PolarAngleAxis dataKey="subject" stroke="#fff" onClick={(e) => handleSpokeClick(e.value)} />
+              <PolarRadiusAxis angle={30} domain={[0, 'dataMax']} stroke="#fff" />
+              <Radar
+                name="Baseline"
+                dataKey="Baseline"
+                stroke="#999999"
+                fill="#999999"
+                fillOpacity={0.6}
+              />
+              <Radar
+                name="Control"
+                dataKey="Control"
+                stroke="#EE6363"
+                fill="#EE6363"
+                fillOpacity={0.6}
+              />
+              <Radar name="NSB" dataKey="NSB" stroke="#44BBA4" fill="#44BBA4" fillOpacity={0.6} />
+              <Tooltip />
+              <Legend
+                wrapperStyle={{
+                  paddingTop: '20px',
+                  color: '#777',
+                }}
+              />
+            </RadarChart>
+          </ResponsiveContainer>
+        </motion.div>
         {/* Updated text color for better visibility */}
         <div className="text-sm text-gray-300 text-center">
           • Baseline (Grey line) • Control Group Mid-Term (Red line) • NSB Mid-Term (Green line)
@@ -153,22 +229,25 @@ const NSBOverview = () => {
 
       <Button
         className="mt-6 md:mt-8 transform transition-transform active:scale-95"
+        style={{backgroundColor: '#003D6C', color: 'white'}}
         onClick={() => router.push('/main-menu')}
       >
         BACK TO MAIN MENU
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
+        <DialogContent style={{backgroundColor: '#F2F5FA', color: '#003D6C'}}>
           <DialogHeader>
-            <DialogTitle>{metricDetails[selectedMetric]?.title || 'Metric Details'}</DialogTitle>
-            <DialogDescription>
+            <DialogTitle style={{color: '#003D6C'}}>{metricDetails[selectedMetric]?.title || 'Metric Details'}</DialogTitle>
+            <DialogDescription style={{color: '#333333'}}>
               {metricDetails[selectedMetric]?.description || 'No details available for this metric.'}
             </DialogDescription>
           </DialogHeader>
         </DialogContent>
       </Dialog>
-    </div>
+    </motion.div>
   );
 };
 
 export default NSBOverview;
+
+    
