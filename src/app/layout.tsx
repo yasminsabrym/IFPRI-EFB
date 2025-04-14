@@ -1,3 +1,4 @@
+
 import type {Metadata} from 'next';
 import {Geist, Geist_Mono} from 'next/font/google';
 import './globals.css';
@@ -25,8 +26,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <div className="video-background">
+          <video autoPlay loop muted className="video-foreground">
+            <source src="https://efb.vps-dev.co.uk/wp-content/uploads/2025/04/thg-video-bg.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div className="green-overlay"></div>
         {children}
       </body>
     </html>
   );
 }
+
