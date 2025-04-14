@@ -363,3 +363,54 @@ export {
   ChartLegendContent,
   ChartStyle,
 }
+
+
+import React from 'react';
+import {motion} from 'framer-motion';
+
+const TimeLineChart = ({data}: { data: { date: string; description: string }[] }) => {
+  return (
+    <div className="timeline">
+      {data.map((event, index) => (
+        <motion.div
+          className="timeline-event"
+          key={index}
+          initial={{opacity: 0, y: 50}}
+          animate={{opacity: 1, y: 0, transition: {duration: 0.5, delay: index * 0.2}}}
+        >
+          <div className="timeline-date">{event.date}</div>
+          <div className="timeline-description">{event.description}</div>
+        </motion.div>
+      ))}
+      <style jsx>{`
+        .timeline {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+        }
+        .timeline-event {
+          display: flex;
+          flex-direction: column;
+          padding: 1rem;
+          margin-bottom: 1rem;
+          border-radius: 0.5rem;
+          background-color: #444; /* Darker background for events */
+          border: 1px solid #555; /* Subtle border */
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+        }
+        .timeline-date {
+          font-weight: bold;
+          color: #F2F5FA;
+          margin-bottom: 0.5rem;
+          text-align: start;
+        }
+        .timeline-description {
+          color: #F2F5FA;
+          text-align: start;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default TimeLineChart;

@@ -1,4 +1,5 @@
 import type {Metadata} from 'next';
+import ClientLayout from '../client-layout';
 
 export const metadata: Metadata = {
   title: 'Data-Driven Hope',
@@ -10,9 +11,5 @@ export default async function StuntingReductionLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    
-      {children}
-    
-  );
+  return <ClientLayout>{children}</ClientLayout>;
 }
