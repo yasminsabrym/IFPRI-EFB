@@ -22,7 +22,8 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
   const [isLandscape, setIsLandscape] = useState(false);
   const [containerWidth, setContainerWidth] = useState(600); // Default width
   const [containerHeight, setContainerHeight] = useState(400); // Default height
-    const [chartFontSize, setChartFontSize] = useState(12);
+  const [chartFontSize, setChartFontSize] = useState(12);
+  const [isMobileScreen, setIsMobileScreen] = useState(false);
   useEffect(() => {
     const handleOrientationChange = () => {
       setIsLandscape(window.innerWidth > window.innerHeight);
@@ -38,21 +39,21 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
       let calculatedWidth = Math.min(screenWidth * 0.8, 600);
       let calculatedHeight = Math.min(screenHeight * 0.6, 400);
 
-        if (isLandscape) {
-            calculatedWidth = Math.min(screenWidth * 0.6, 400);
-            calculatedHeight = Math.min(screenHeight * 0.8, 600);
-        }
+      if (isLandscape) {
+        calculatedWidth = Math.min(screenWidth * 0.6, 400);
+        calculatedHeight = Math.min(screenHeight * 0.8, 600);
+      }
 
-
+      setIsMobileScreen(screenWidth < 768);
       setContainerWidth(calculatedWidth);
       setContainerHeight(calculatedHeight);
 
       // Adjust font size
       if (screenWidth < 600) {
-            setChartFontSize(8); // Smaller font size for smaller screens
-        } else {
-            setChartFontSize(12); // Default font size for larger screens
-        }
+        setChartFontSize(8); // Smaller font size for smaller screens
+      } else {
+        setChartFontSize(12); // Default font size for larger screens
+      }
     };
 
     // Initial check
@@ -106,11 +107,12 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
   const calculateMobileChartDimensions = () => {
     const screenWidth = window.innerWidth;
     let calculatedWidth = Math.min(screenWidth * 0.7, 300); // Adjusted width for mobile
-    return { width: calculatedWidth, height: 200 }; // Adjusted height for mobile
+    return {width: calculatedWidth, height: 200}; // Adjusted height for mobile
   };
-    const maxValue = chartData && chartData.length > 0 ? Math.max(...chartData.map(item => item.value)) : 100;
-  const isMobileScreen = window.innerWidth < 768;
+  const maxValue = chartData && chartData.length > 0 ? Math.max(...chartData.map(item => item.value)) : 100;
   const chartLayout = isMobileScreen ? 'vertical' : 'horizontal';
+  const showLabels = !isMobileScreen; // Hide labels on smaller screens
+
   return (
     <motion.div className="relative" variants={containerVariants} initial="hidden" animate="visible" exit="exit">
       <div className="flex flex-row items-center justify-around w-full py-4 overflow-x-auto">
@@ -140,19 +142,19 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={chartData} layout={chartLayout}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" type="category"  style={{ fontSize: chartFontSize }}/>
+                <XAxis dataKey="name" type="category" style={{fontSize: chartFontSize}} />
                 <YAxis
-                    tickFormatter={(value) => value.toString()}
-                    domain={[0, maxValue]}
-                    style={{ fontSize: chartFontSize }}
+                  tickFormatter={(value) => value.toString()}
+                  domain={[0, maxValue]}
+                  style={{fontSize: chartFontSize}}
                 />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="value">
+                <Bar dataKey="value" barSize={isMobileScreen ? 10 : 30}>
                   {chartData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
-                  <LabelList dataKey="value" position="top" style={{ fontSize: chartFontSize }}/>
+                  {showLabels && <LabelList dataKey="value" position="top" style={{fontSize: chartFontSize}} />}
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
