@@ -128,8 +128,8 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
             <DialogTitle>{selectedNode}</DialogTitle>
           </DialogHeader>
           {selectedNode && chartData.length > 0 ? (
-            <ResponsiveContainer width="90%" height={300}>
-              <BarChart data={chartData} layout={isLandscape ? 'horizontal' : 'vertical'}>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={chartData} layout={window.innerWidth < 768 ? 'vertical' : 'horizontal'}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" type="category" />
                 <YAxis />
