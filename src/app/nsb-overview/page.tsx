@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {Button} from '@/components/ui/button';
 import {useRouter} from 'next/navigation';
 import {
@@ -15,6 +15,7 @@ import {
 } from 'recharts';
 import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription} from '@/components/ui/dialog';
 import {motion} from 'framer-motion';
+import {useMediaQuery} from '@/hooks/use-media-query';
 
 const data = [
   {
@@ -121,6 +122,15 @@ const NSBOverview = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [selectedMetric, setSelectedMetric] = useState(null);
+  const isSmallScreen = useMediaQuery('(max-width: 640px)'); // Define the breakpoint
+
+  const chartData: any = useMemo(() => {
+    return data.map(item => ({
+      ...item,
+      fullMark: Math.max(item.Baseline, item.Control, item.NSB) * 1.2, // Adjust fullMark dynamically
+    }));
+  }, []);
+
 
   const handleSpokeClick = (metric) => {
     setSelectedMetric(metric);
@@ -157,6 +167,9 @@ const NSBOverview = () => {
     },
   };
 
+  const chartHeight = isSmallScreen ? 300 : 400;
+  const chartFontSize = isSmallScreen ? 10 : 12;
+
   return (
     <motion.div
       className="flex flex-col items-center justify-start min-h-screen p-4 md:p-8 text-white"
@@ -189,10 +202,10 @@ const NSBOverview = () => {
         {/* Interactive Spider Chart */}
         <motion.div variants={chartVariants} initial="hidden" animate="visible"
           className="bg-gray-100 bg-opacity-20 rounded-lg p-3 md:p-4 mb-6 w-full max-w-2xl">
-          <ResponsiveContainer width="100%" height={400}>
-            <RadarChart data={data} cx="50%" cy="50%" outerRadius="80%">
+          <ResponsiveContainer width="100%" height={chartHeight} >
+            <RadarChart data={chartData} cx="50%" cy="50%" outerRadius="80%">
               <PolarGrid gridType="circle" stroke="#555555" />
-              <PolarAngleAxis dataKey="subject" stroke="#fff" onClick={(e) => handleSpokeClick(e.value)} />
+              <PolarAngleAxis dataKey="subject" stroke="#fff" tick={{fontSize: chartFontSize}} onClick={(e) => handleSpokeClick(e.value)} />
               <PolarRadiusAxis angle={30} domain={[0, 'dataMax']} stroke="#fff" />
               <Radar
                 name="Baseline"
@@ -209,7 +222,7 @@ const NSBOverview = () => {
                 fillOpacity={0.6}
               />
               <Radar name="NSB" dataKey="NSB" stroke="#44BBA4" fill="#44BBA4" fillOpacity={0.6} />
-              <Tooltip />
+              <Tooltip contentStyle={{fontSize: chartFontSize}} />
               <Legend
                 wrapperStyle={{
                   paddingTop: '20px',

@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useState, useCallback, useEffect} from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   BarChart,
   Bar,
@@ -11,150 +11,96 @@ import {
   Legend,
   ResponsiveContainer,
   LabelList,
-  Cell,
+  Cell
 } from 'recharts';
-import {Dialog, DialogContent, DialogHeader, DialogTitle} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from './dialog';
 import {motion} from 'framer-motion';
 
-const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: number; severe: number}[]}) => {
+const TimeLineChart = ({
+  data, // data: {name: string; no: number; moderate: number; severe: number}[]
+}: {
+  data: {name: string; no: number; moderate: number; severe: number}[];
+}) => {
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
-  const [isLandscape, setIsLandscape] = useState(false);
-  const [containerWidth, setContainerWidth] = useState(600); // Default width
-  const [containerHeight, setContainerHeight] = useState(400); // Default height
-  const [chartFontSize, setChartFontSize] = useState(12);
-  const [isMobileScreen, setIsMobileScreen] = useState(false);
-  useEffect(() => {
-    const handleOrientationChange = () => {
-      setIsLandscape(window.innerWidth > window.innerHeight);
-      updateChartDimensions();
-    };
-
-    const updateChartDimensions = () => {
-      // Adjust container width and height based on screen size
-      const screenWidth = window.innerWidth;
-      const screenHeight = window.innerHeight;
-
-      // Set width to a percentage of screen width, but not exceeding a maximum value
-      let calculatedWidth = Math.min(screenWidth * 0.8, 600);
-      let calculatedHeight = Math.min(screenHeight * 0.6, 400);
-
-      if (isLandscape) {
-        calculatedWidth = Math.min(screenWidth * 0.6, 400);
-        calculatedHeight = Math.min(screenHeight * 0.8, 600);
-      }
-
-      setIsMobileScreen(screenWidth < 768);
-      setContainerWidth(calculatedWidth);
-      setContainerHeight(calculatedHeight);
-
-      // Adjust font size
-      if (screenWidth < 600) {
-        setChartFontSize(8); // Smaller font size for smaller screens
-      } else {
-        setChartFontSize(12); // Default font size for larger screens
-      }
-    };
-
-    // Initial check
-    handleOrientationChange();
-    updateChartDimensions();
-
-    // Listen for changes
-    window.addEventListener('resize', handleOrientationChange);
-
-    // Clean up listener
-    return () => window.removeEventListener('resize', handleOrientationChange);
-  }, [isLandscape]);
 
   const handleNodeClick = (nodeName: string) => {
     setSelectedNode(nodeName);
     setOpen(true);
   };
 
-  const closePopup = useCallback(() => {
-    setOpen(false);
-  }, []);
-
-  const chartData = selectedNode
-    ? data
-        .filter(item => item.name === selectedNode)
-        .map(item => [
-          {name: 'No Stunting', value: item.no, color: '#82ca9d'},
-          {name: 'Moderate Stunting', value: item.moderate, color: '#f0ad4e'},
-          {name: 'Severe Stunting', value: item.severe, color: '#d9534f'},
-        ])[0]
-    : [];
-
-  const containerVariants = {
-    hidden: {opacity: 0},
-    visible: {
-      opacity: 1,
-      transition: {
-        delay: 0.3,
-        duration: 0.8,
-        ease: 'easeInOut',
-      },
-    },
-    exit: {
-      opacity: 0,
-      transition: {duration: 0.4},
-    },
-  };
-
-  const barColors = ['#82ca9d', '#f0ad4e', '#d9534f'];
-
-  const calculateMobileChartDimensions = () => {
-    const screenWidth = window.innerWidth;
-    let calculatedWidth = Math.min(screenWidth * 0.7, 300); // Adjusted width for mobile
-    return {width: calculatedWidth, height: 200}; // Adjusted height for mobile
-  };
-  const maxValue = chartData && chartData.length > 0 ? Math.max(...chartData.map(item => item.value)) : 100;
-  const chartLayout = isMobileScreen ? 'vertical' : 'horizontal';
-  const showLabels = !isMobileScreen; // Hide labels on smaller screens
+  const chartData = useMemo(() => {
+    if (selectedNode) {
+      const found = data.find(item => item.name === selectedNode);
+      if (found) {
+        return [
+          {name: 'No Stunting', value: found.no, color: '#82ca9d'},
+          {name: 'Moderate Stunting', value: found.moderate, color: '#f0ad4e'},
+          {name: 'Severe Stunting', value: found.severe, color: '#d9534f'},
+        ];
+      }
+    }
+    return [];
+  }, [selectedNode, data]);
 
   return (
-    <motion.div className="relative" variants={containerVariants} initial="hidden" animate="visible" exit="exit">
+    <motion.div className="relative">
       <div className="flex flex-row items-center justify-around w-full py-4 overflow-x-auto">
-        {data.map(node => (
-          <div
+        {data.map(node => ( // Keep the onClick handler for each node
+          <motion.div
             key={node.name}
             className="flex flex-col items-center justify-center min-w-[100px]"
-            onClick={() => handleNodeClick(node.name)}
+            onClick={() => handleNodeClick(node.name)} // Correctly placed onClick
+            whileHover={{scale: 1.1}}
+            whileTap={{scale: 0.9}}
           >
-            <motion.button
-              className="w-12 h-12 md:w-20 md:h-20 rounded-full border-4 focus:outline-none"
-              style={{borderColor: '#003D6C'}}
-              whileHover={{scale: 1.1}}
-              whileTap={{scale: 0.9}}
-            />
+            <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border-4" style={{borderColor: '#003D6C'}} />
             <span className="mt-2 text-white text-xs md:text-sm whitespace-nowrap">{node.name}</span>
-          </div>
+          </motion.div>
         ))}
       </div>
-
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="bg-white text-black">
+        <DialogContent className="bg-white text-black max-w-[95vw] sm:max-w-[600px] min-h-[300px]">
           <DialogHeader>
             <DialogTitle>{selectedNode}</DialogTitle>
           </DialogHeader>
-          {selectedNode && chartData.length > 0 ? (
+          {chartData && chartData.length > 0 ? (
             <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={chartData} layout={chartLayout}>
+              <BarChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" type="category" style={{fontSize: chartFontSize}} />
-                <YAxis
-                  tickFormatter={(value) => value.toString()}
-                  domain={[0, maxValue]}
-                  style={{fontSize: chartFontSize}}
+                <XAxis
+                  dataKey="name"
+                  style={{ fontSize: '0.7rem' }} // Responsive font size
+                  tick={{
+                    angle: -45,
+                    textAnchor: 'end',
+                    dx: -5,
+                    dy: 10,
+                  }}
                 />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="value" barSize={isMobileScreen ? 10 : 30}>
+                <YAxis
+                  tickFormatter={value => `${value}`}
+                  style={{ fontSize: '0.7rem' }} // Responsive font size
+                />
+                <Tooltip
+                  contentStyle={{ fontSize: '0.7rem' }} // Responsive font size in tooltip
+                />
+                <Legend
+                  wrapperStyle={{ fontSize: '0.7rem' }} // Responsive font size in legend
+                />
+                <Bar dataKey="value" className="bar">
+                  <LabelList
+                    dataKey="value"
+                    position="top"
+                    style={{ fontSize: '0.7rem' }} // Responsive font size for labels
+                    formatter={(value) => {
+                      return value > 999 ? `${(value / 1000).toFixed(1)}k` : value;
+                    }}
+                  />
                   {chartData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
+                    <Cell key={`cell-${index}`} fill={entry.color}
+                    />
                   ))}
-                  {showLabels && <LabelList dataKey="value" position="top" style={{fontSize: chartFontSize}} />}
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
