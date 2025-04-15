@@ -20,14 +20,32 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [isLandscape, setIsLandscape] = useState(false);
+  const [containerWidth, setContainerWidth] = useState(600); // Default width
+  const [containerHeight, setContainerHeight] = useState(400); // Default height
 
   useEffect(() => {
     const handleOrientationChange = () => {
       setIsLandscape(window.innerWidth > window.innerHeight);
+      updateChartDimensions();
+    };
+
+    const updateChartDimensions = () => {
+      // Adjust container width and height based on screen size
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+
+      // Set width to a percentage of screen width, but not exceeding a maximum value
+      const calculatedWidth = Math.min(screenWidth * 0.8, 600);
+      setContainerWidth(calculatedWidth);
+
+      // Adjust height based on screen height, ensuring it doesn't exceed a maximum value
+      const calculatedHeight = Math.min(screenHeight * 0.6, 400);
+      setContainerHeight(calculatedHeight);
     };
 
     // Initial check
     handleOrientationChange();
+    updateChartDimensions();
 
     // Listen for changes
     window.addEventListener('resize', handleOrientationChange);
