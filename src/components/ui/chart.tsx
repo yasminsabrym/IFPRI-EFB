@@ -22,7 +22,7 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
   const [isLandscape, setIsLandscape] = useState(false);
   const [containerWidth, setContainerWidth] = useState(600); // Default width
   const [containerHeight, setContainerHeight] = useState(400); // Default height
-
+    const [chartFontSize, setChartFontSize] = useState(12);
   useEffect(() => {
     const handleOrientationChange = () => {
       setIsLandscape(window.innerWidth > window.innerHeight);
@@ -46,6 +46,13 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
 
       setContainerWidth(calculatedWidth);
       setContainerHeight(calculatedHeight);
+
+      // Adjust font size
+      if (screenWidth < 600) {
+            setChartFontSize(8); // Smaller font size for smaller screens
+        } else {
+            setChartFontSize(12); // Default font size for larger screens
+        }
     };
 
     // Initial check
@@ -102,7 +109,8 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
     return { width: calculatedWidth, height: 200 }; // Adjusted height for mobile
   };
     const maxValue = chartData && chartData.length > 0 ? Math.max(...chartData.map(item => item.value)) : 100;
-
+  const isMobileScreen = window.innerWidth < 768;
+  const chartLayout = isMobileScreen ? 'vertical' : 'horizontal';
   return (
     <motion.div className="relative" variants={containerVariants} initial="hidden" animate="visible" exit="exit">
       <div className="flex flex-row items-center justify-around w-full py-4 overflow-x-auto">
@@ -130,12 +138,13 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
           </DialogHeader>
           {selectedNode && chartData.length > 0 ? (
             <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={chartData} layout={window.innerWidth < 768 ? 'vertical' : 'horizontal'}>
+              <BarChart data={chartData} layout={chartLayout}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" type="category" />
+                <XAxis dataKey="name" type="category"  style={{ fontSize: chartFontSize }}/>
                 <YAxis
                     tickFormatter={(value) => value.toString()}
                     domain={[0, maxValue]}
+                    style={{ fontSize: chartFontSize }}
                 />
                 <Tooltip />
                 <Legend />
@@ -143,7 +152,7 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
                   {chartData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
-                  <LabelList dataKey="value" position="top" />
+                  <LabelList dataKey="value" position="top" style={{ fontSize: chartFontSize }}/>
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
