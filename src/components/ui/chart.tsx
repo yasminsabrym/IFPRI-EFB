@@ -10,7 +10,6 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  LabelList,
   Cell,
 } from 'recharts';
 import {Dialog, DialogContent, DialogHeader, DialogTitle} from './dialog';
@@ -20,21 +19,27 @@ import {useMediaQuery} from '@/hooks/use-media-query';
 const BaselineBaby = () => (
   <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="50" cy="50" r="45" fill="#70C16E"/>
-    <text x="50" y="50" textAnchor="middle" dominantBaseline="middle" fontSize="20" fill="white">B</text>
+    <text x="50" y="50" textAnchor="middle" dominantBaseline="middle" fontSize="20" fill="white">
+      B
+    </text>
   </svg>
 );
 
 const TwoMonthsBaby = () => (
   <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="50" cy="50" r="45" fill="#70C16E"/>
-    <text x="50" y="50" textAnchor="middle" dominantBaseline="middle" fontSize="20" fill="white">2M</text>
+    <text x="50" y="50" textAnchor="middle" dominantBaseline="middle" fontSize="20" fill="white">
+      2M
+    </text>
   </svg>
 );
 
 const FourMonthsBaby = () => (
   <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="50" cy="50" r="45" fill="#70C16E"/>
-    <text x="50" y="50" textAnchor="middle" dominantBaseline="middle" fontSize="20" fill="white">4M</text>
+    <text x="50" y="50" textAnchor="middle" dominantBaseline="middle" fontSize="20" fill="white">
+      4M
+    </text>
   </svg>
 );
 
@@ -45,7 +50,8 @@ const TimeLineChart = ({
 }) => {
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
-    const isSmallScreen = useMediaQuery('(max-width: 640px)');
+  const isSmallScreen = useMediaQuery('(max-width: 640px)');
+  const isMediumScreen = useMediaQuery('(max-width: 768px)');
 
   const handleNodeClick = (nodeName: string) => {
     setSelectedNode(nodeName);
@@ -78,12 +84,18 @@ const TimeLineChart = ({
           fill="#666"
           textAnchor="middle"
           dominantBaseline="middle"
+          fontSize={isSmallScreen ? '0.5rem' : '0.7rem'} // Responsive font size
         >
           {value}
         </text>
       </g>
     );
   };
+
+  const barChartHeight = isSmallScreen ? 200 : 300;
+  const xAxisFontSize = isSmallScreen ? '0.6rem' : '0.7rem';
+
+  const orientation = isSmallScreen ? 'vertical' : 'horizontal'; // Responsive layout
 
   return (
     <motion.div className="relative">
@@ -112,12 +124,12 @@ const TimeLineChart = ({
             <DialogTitle>{selectedNode}</DialogTitle>
           </DialogHeader>
           {chartData && chartData.length > 0 ? (
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={chartData}>
+            <ResponsiveContainer width="100%" height={barChartHeight}>
+              <BarChart data={chartData} layout={orientation}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis
                   dataKey="name"
-                  style={{fontSize: isSmallScreen ? '0.6rem' : '0.7rem'}}
+                  style={{fontSize: xAxisFontSize}}
                   tick={{
                     angle: -45,
                     textAnchor: 'end',
@@ -127,10 +139,10 @@ const TimeLineChart = ({
                 />
                 <YAxis
                   tickFormatter={value => `${value}`}
-                  style={{fontSize: isSmallScreen ? '0.6rem' : '0.7rem'}}
+                  style={{fontSize: isSmallScreen ? '0.5rem' : '0.7rem'}}
                 />
-                <Tooltip contentStyle={{fontSize: isSmallScreen ? '0.6rem' : '0.7rem'}}/>
-                <Legend wrapperStyle={{fontSize: isSmallScreen ? '0.6rem' : '0.7rem'}} />
+                <Tooltip contentStyle={{fontSize: isSmallScreen ? '0.5rem' : '0.7rem'}}/>
+                <Legend wrapperStyle={{fontSize: isSmallScreen ? '0.5rem' : '0.7rem'}} />
                 <Bar dataKey="value" className="bar" label={renderCustomizedLabel}>
                   {chartData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
