@@ -124,6 +124,7 @@ const NSBOverview = () => {
   const [open, setOpen] = useState(false);
   const [selectedMetric, setSelectedMetric] = useState(null);
   const isSmallScreen = useMediaQuery('(max-width: 640px)'); // Define the breakpoint
+  const isMediumScreen = useMediaQuery('(max-width: 768px)');
 
   const chartData: any = useMemo(() => {
     return data.map(item => ({
@@ -214,7 +215,7 @@ const NSBOverview = () => {
                 dataKey="subject"
                 stroke="#fff"
                 // Dynamically set the font size based on screen size
-                tick={{fontSize: isSmallScreen ? 8 : 12}}
+                tick={{fontSize: isSmallScreen ? 8 : (isMediumScreen ? 10 : 12)}}
                 onClick={(e) => handleSpokeClick(e.value)}
               />
               <PolarRadiusAxis angle={30} domain={[0, 'dataMax']} stroke="#fff" />
