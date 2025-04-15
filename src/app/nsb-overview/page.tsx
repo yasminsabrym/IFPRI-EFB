@@ -218,7 +218,7 @@ const NSBOverview = () => {
                 tick={{fontSize: isSmallScreen ? 8 : (isMediumScreen ? 10 : 12)}}
                 onClick={(e) => handleSpokeClick(e.value)}
               />
-              <PolarRadiusAxis angle={30} domain={[0, 'dataMax']} stroke="#fff" />
+              <PolarRadiusAxis angle={30} domain={[0, 'dataMax']} stroke="#fff" tick={{fontSize: chartFontSize}}/>
               <Radar
                 name="Baseline"
                 dataKey="Baseline"
