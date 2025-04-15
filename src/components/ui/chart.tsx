@@ -77,6 +77,11 @@ const TimeLineChart = ({
     const {x, y, width, height, value} = props;
     const radius = 10;
 
+    // Check if x is a valid number
+    if (isNaN(x)) {
+      return null; // Don't render the label if x is NaN
+    }
+
     return (
       <g>
         <text
