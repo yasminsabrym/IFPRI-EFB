@@ -15,8 +15,9 @@ const TimeLineChart = ({ data }: { data: { name: string; no: number; moderate: n
     setSelectedNode(null);
   };
 
-  return (<div className="relative">
-    <div className="flex flex-col items-center justify-around w-full h-96 md:h-64">
+  return (
+    <div className="relative">
+      <div className="flex flex-col items-center justify-around w-full h-96 md:h-64">
         {data.map((node) => (
           <div
             key={node.name}
@@ -35,7 +36,7 @@ const TimeLineChart = ({ data }: { data: { name: string; no: number; moderate: n
       <Transition appear show={selectedNode !== null} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closePopup}>
           <Transition.Child
-            as={Fragment}            
+            as={Fragment}
             enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -48,10 +49,8 @@ const TimeLineChart = ({ data }: { data: { name: string; no: number; moderate: n
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
-                as={Fragment}                
+                as={Fragment}
                 className="text-white"
-                
-                
                 enter="ease-out duration-300"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
@@ -64,17 +63,18 @@ const TimeLineChart = ({ data }: { data: { name: string; no: number; moderate: n
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    {selectedNode}                    
-                  </Dialog.Title>                  
-                  {data
-                    .filter((item) => item.name === selectedNode)
-                    .map((item) => (
-                      <div key={item.name}>
-                        
-                        <div>
-                          <p>No Stunting: {item.no}%</p>
-                          <p>Moderate Stunting: {item.moderate}%</p>
-                          <p>Severe Stunting: {item.severe}%</p>
+                    {selectedNode}
+                  </Dialog.Title>
+                  <div>
+                    {data
+                      .filter((item) => item.name === selectedNode)
+                      .map((item) => (
+                        <div key={item.name}>
+                          <div>
+                            <p>No Stunting: {item.no}%</p>
+                            <p>Moderate Stunting: {item.moderate}%</p>
+                            <p>Severe Stunting: {item.severe}%</p>
+                          </div>
                         </div>
                       ))}
                   </div>
@@ -92,7 +92,7 @@ const TimeLineChart = ({ data }: { data: { name: string; no: number; moderate: n
                     </button>
                   </div>
                 </Dialog.Panel>
-              </Transition.Child>              
+              </Transition.Child>
             </div>
           </div>
         </Dialog>
@@ -109,13 +109,10 @@ const TimeLineChart = ({ data }: { data: { name: string; no: number; moderate: n
           .h-96 {
             height: 250px;
           }
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
+        }
+      `}</style>
     </div>
   );
 };
-
 
 export default TimeLineChart;
