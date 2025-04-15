@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, {useState, useMemo} from 'react';
 import {
   BarChart,
   Bar,
@@ -11,10 +11,32 @@ import {
   Legend,
   ResponsiveContainer,
   LabelList,
-  Cell
+  Cell,
 } from 'recharts';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from './dialog';
+import {Dialog, DialogContent, DialogHeader, DialogTitle} from './dialog';
 import {motion} from 'framer-motion';
+import {useMediaQuery} from '@/hooks/use-media-query';
+
+const BaselineBaby = () => (
+  <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="45" fill="#70C16E"/>
+    <text x="50" y="50" textAnchor="middle" dominantBaseline="middle" fontSize="20" fill="white">B</text>
+  </svg>
+);
+
+const TwoMonthsBaby = () => (
+  <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="45" fill="#70C16E"/>
+    <text x="50" y="50" textAnchor="middle" dominantBaseline="middle" fontSize="20" fill="white">2M</text>
+  </svg>
+);
+
+const FourMonthsBaby = () => (
+  <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="45" fill="#70C16E"/>
+    <text x="50" y="50" textAnchor="middle" dominantBaseline="middle" fontSize="20" fill="white">4M</text>
+  </svg>
+);
 
 const TimeLineChart = ({
   data, // data: {name: string; no: number; moderate: number; severe: number}[]
@@ -23,6 +45,7 @@ const TimeLineChart = ({
 }) => {
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+    const isSmallScreen = useMediaQuery('(max-width: 640px)');
 
   const handleNodeClick = (nodeName: string) => {
     setSelectedNode(nodeName);
@@ -43,22 +66,46 @@ const TimeLineChart = ({
     return [];
   }, [selectedNode, data]);
 
+  const renderCustomizedLabel = (props: any) => {
+    const {x, y, width, height, value} = props;
+    const radius = 10;
+
+    return (
+      <g>
+        <text
+          x={x + width / 2}
+          y={y - radius}
+          fill="#666"
+          textAnchor="middle"
+          dominantBaseline="middle"
+        >
+          {value}
+        </text>
+      </g>
+    );
+  };
+
   return (
     <motion.div className="relative">
       <div className="flex flex-row items-center justify-around w-full py-4 overflow-x-auto">
-        {data.map(node => ( // Keep the onClick handler for each node
+        {data.map(node => (
           <motion.div
             key={node.name}
             className="flex flex-col items-center justify-center min-w-[100px]"
-            onClick={() => handleNodeClick(node.name)} // Correctly placed onClick
+            onClick={() => handleNodeClick(node.name)}
             whileHover={{scale: 1.1}}
             whileTap={{scale: 0.9}}
           >
-            <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border-4" style={{borderColor: '#003D6C'}} />
+            <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border-4" style={{borderColor: '#003D6C'}}>
+              {node.name === 'Baseline (Birth)' && <BaselineBaby />}
+              {node.name === '2 Months' && <TwoMonthsBaby />}
+              {node.name === '4 Months' && <FourMonthsBaby />}
+            </div>
             <span className="mt-2 text-white text-xs md:text-sm whitespace-nowrap">{node.name}</span>
           </motion.div>
         ))}
       </div>
+
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="bg-white text-black max-w-[95vw] sm:max-w-[600px] min-h-[300px]">
           <DialogHeader>
@@ -70,7 +117,7 @@ const TimeLineChart = ({
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis
                   dataKey="name"
-                  style={{ fontSize: '0.7rem' }} // Responsive font size
+                  style={{fontSize: isSmallScreen ? '0.6rem' : '0.7rem'}}
                   tick={{
                     angle: -45,
                     textAnchor: 'end',
@@ -80,26 +127,13 @@ const TimeLineChart = ({
                 />
                 <YAxis
                   tickFormatter={value => `${value}`}
-                  style={{ fontSize: '0.7rem' }} // Responsive font size
+                  style={{fontSize: isSmallScreen ? '0.6rem' : '0.7rem'}}
                 />
-                <Tooltip
-                  contentStyle={{ fontSize: '0.7rem' }} // Responsive font size in tooltip
-                />
-                <Legend
-                  wrapperStyle={{ fontSize: '0.7rem' }} // Responsive font size in legend
-                />
-                <Bar dataKey="value" className="bar">
-                  <LabelList
-                    dataKey="value"
-                    position="top"
-                    style={{ fontSize: '0.7rem' }} // Responsive font size for labels
-                    formatter={(value) => {
-                      return value > 999 ? `${(value / 1000).toFixed(1)}k` : value;
-                    }}
-                  />
+                <Tooltip contentStyle={{fontSize: isSmallScreen ? '0.6rem' : '0.7rem'}}/>
+                <Legend wrapperStyle={{fontSize: isSmallScreen ? '0.6rem' : '0.7rem'}} />
+                <Bar dataKey="value" className="bar" label={renderCustomizedLabel}>
                   {chartData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color}
-                    />
+                    <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Bar>
               </BarChart>
