@@ -16,6 +16,7 @@ import {
 import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription} from '@/components/ui/dialog';
 import {motion} from 'framer-motion';
 import {useMediaQuery} from '@/hooks/use-media-query';
+import {Logo} from '@/components/logo';
 
 const data = [
   {
@@ -178,6 +179,7 @@ const NSBOverview = () => {
       animate="visible"
       exit="exit"
     >
+        <Logo/>
       <motion.h1
         className="text-2xl md:text-3xl font-semibold mb-4 text-center"
         style={{color: '#FF6301'}}
@@ -187,7 +189,8 @@ const NSBOverview = () => {
         Nutrition-Sensitive Box: Protecting Food Security
       </motion.h1>
       <motion.div
-        className="bg-gray-100 bg-opacity-20 rounded-lg p-3 md:p-4 mb-6 w-full max-w-2xl"
+        className=" rounded-lg p-3 md:p-4 mb-6 w-full max-w-2xl"
+        style={{backgroundColor: 'rgba(128, 128, 128, 0.3)'}}
         initial={{opacity: 0}}
         animate={{opacity: 0.8, transition: {duration: 0.8, delay: 0.5}}}
       >
@@ -201,11 +204,17 @@ const NSBOverview = () => {
       <div className="w-full max-w-md md:max-w-xl">
         {/* Interactive Spider Chart */}
         <motion.div variants={chartVariants} initial="hidden" animate="visible"
-          className="bg-gray-100 bg-opacity-20 rounded-lg p-3 md:p-4 mb-6 w-full max-w-2xl">
+          className=" rounded-lg p-3 md:p-4 mb-6 w-full max-w-2xl"
+          style={{backgroundColor: 'rgba(128, 128, 128, 0.3)'}}>
           <ResponsiveContainer width="100%" height={chartHeight} >
             <RadarChart data={chartData} cx="50%" cy="50%" outerRadius="80%">
               <PolarGrid gridType="circle" stroke="#555555" />
-              <PolarAngleAxis dataKey="subject" stroke="#fff" tick={{fontSize: chartFontSize}} onClick={(e) => handleSpokeClick(e.value)} />
+              <PolarAngleAxis
+                dataKey="subject"
+                stroke="#fff"
+                tick={{fontSize: isSmallScreen ? 8 : 12}} // Responsive font size
+                onClick={(e) => handleSpokeClick(e.value)}
+              />
               <PolarRadiusAxis angle={30} domain={[0, 'dataMax']} stroke="#fff" />
               <Radar
                 name="Baseline"
@@ -234,7 +243,7 @@ const NSBOverview = () => {
         </motion.div>
         {/* Updated text color for better visibility */}
         <div className="text-sm text-black text-center">
-          • Baseline (<span style={{color: '#000000'}}>Yellow line</span>) • Control Group Mid-Term (Red line) • NSB Mid-Term (Green line)
+          • Baseline (<span style={{color: '#FFC107'}}>Yellow line</span>) • Control Group Mid-Term (Red line) • NSB Mid-Term (Green line)
           <br />
           Tap any metric on the chart to learn more.
         </div>
