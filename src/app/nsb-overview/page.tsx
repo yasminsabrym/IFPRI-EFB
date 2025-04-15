@@ -220,7 +220,7 @@ const NSBOverview = () => {
           </ResponsiveContainer>
         </motion.div>
         {/* Updated text color for better visibility */}
-        <div className="text-sm text-gray-300 text-center">
+        <div className="text-sm text-black text-center">
           • Baseline (<span style={{color: '#000000'}}>Black line</span>) • Control Group Mid-Term (Red line) • NSB Mid-Term (Green line)
           <br />
           Tap any metric on the chart to learn more.
