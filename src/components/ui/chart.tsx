@@ -35,11 +35,16 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
       const screenHeight = window.innerHeight;
 
       // Set width to a percentage of screen width, but not exceeding a maximum value
-      const calculatedWidth = Math.min(screenWidth * 0.8, 600);
-      setContainerWidth(calculatedWidth);
+      let calculatedWidth = Math.min(screenWidth * 0.8, 600);
+      let calculatedHeight = Math.min(screenHeight * 0.6, 400);
 
-      // Adjust height based on screen height, ensuring it doesn't exceed a maximum value
-      const calculatedHeight = Math.min(screenHeight * 0.6, 400);
+        if (isLandscape) {
+            calculatedWidth = Math.min(screenWidth * 0.6, 400);
+            calculatedHeight = Math.min(screenHeight * 0.8, 600);
+        }
+
+
+      setContainerWidth(calculatedWidth);
       setContainerHeight(calculatedHeight);
     };
 
@@ -52,7 +57,7 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
 
     // Clean up listener
     return () => window.removeEventListener('resize', handleOrientationChange);
-  }, []);
+  }, [isLandscape]);
 
   const handleNodeClick = (nodeName: string) => {
     setSelectedNode(nodeName);
