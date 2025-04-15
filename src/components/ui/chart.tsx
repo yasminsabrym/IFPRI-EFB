@@ -53,9 +53,9 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
 
   return (
     <motion.div className="relative" variants={containerVariants} initial="hidden" animate="visible" exit="exit">
-      <div className="flex flex-row items-center justify-around w-full h-32 md:h-48">
+      <div className="flex flex-row items-center justify-around w-full py-4 overflow-x-auto">
         {data.map(node => (
-          <div key={node.name} className="flex flex-col items-center justify-center">
+          <div key={node.name} className="flex flex-col items-center justify-center min-w-[100px]">
             <motion.button
               className="w-12 h-12 md:w-20 md:h-20 rounded-full border-4 focus:outline-none"
               style={{borderColor: '#003D6C'}}
@@ -63,7 +63,7 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
               whileHover={{scale: 1.1}}
               whileTap={{scale: 0.9}}
             ></motion.button>
-            <span className="mt-2 text-white text-xs md:text-sm">{node.name}</span>
+            <span className="mt-2 text-white text-xs md:text-sm whitespace-nowrap">{node.name}</span>
           </div>
         ))}
       </div>
