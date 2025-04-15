@@ -85,7 +85,7 @@ const TimeLineChart = ({
     return (
       <g>
         <text
-          x={x + width / 2}
+          x={isNaN(x) ? 0 : x + width / 2}
           y={y - radius}
           fill="#666"
           textAnchor="middle"
