@@ -96,11 +96,12 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
 
   const barColors = ['#82ca9d', '#f0ad4e', '#d9534f'];
 
-    const calculateMobileChartDimensions = () => {
-        const screenWidth = window.innerWidth;
-        let calculatedWidth = Math.min(screenWidth * 0.7, 300); // Adjusted width for mobile
-        return { width: calculatedWidth, height: 200 }; // Adjusted height for mobile
-    };
+  const calculateMobileChartDimensions = () => {
+    const screenWidth = window.innerWidth;
+    let calculatedWidth = Math.min(screenWidth * 0.7, 300); // Adjusted width for mobile
+    return { width: calculatedWidth, height: 200 }; // Adjusted height for mobile
+  };
+    const maxValue = chartData && chartData.length > 0 ? Math.max(...chartData.map(item => item.value)) : 100;
 
   return (
     <motion.div className="relative" variants={containerVariants} initial="hidden" animate="visible" exit="exit">
@@ -132,7 +133,10 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
               <BarChart data={chartData} layout={window.innerWidth < 768 ? 'vertical' : 'horizontal'}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" type="category" />
-                <YAxis />
+                <YAxis
+                    tickFormatter={(value) => value.toString()}
+                    domain={[0, maxValue]}
+                />
                 <Tooltip />
                 <Legend />
                 <Bar dataKey="value">
