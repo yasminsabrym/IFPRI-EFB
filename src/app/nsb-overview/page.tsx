@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, {useState} from 'react';
@@ -229,7 +228,7 @@ const NSBOverview = () => {
 
       <Button
         className="mt-6 md:mt-8 transform transition-transform active:scale-95"
-        style={{backgroundColor: '#003D6C', color: 'white'}}
+        style={{backgroundColor: '#917555', color: 'white'}}
         onClick={() => router.push('/main-menu')}
       >
         BACK TO MAIN MENU
@@ -249,5 +248,3 @@ const NSBOverview = () => {
 };
 
 export default NSBOverview;
-
-    

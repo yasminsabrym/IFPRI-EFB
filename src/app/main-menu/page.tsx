@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -55,7 +54,7 @@ const MainMenu = () => {
           <Button
             size="lg"
             className="w-full"
-            style={{backgroundColor: '#003D6C', color: 'white'}}
+            style={{backgroundColor: '#917555', color: 'white'}}
             onClick={() => router.push('/nsb-overview')}
             variants={buttonVariants}
             whileHover="whileHover"
@@ -68,7 +67,7 @@ const MainMenu = () => {
           <Button
             size="lg"
             className="w-full"
-            style={{backgroundColor: '#003D6C', color: 'white'}}
+            style={{backgroundColor: '#917555', color: 'white'}}
             onClick={() => router.push('/stunting-reduction')}
             variants={buttonVariants}
             whileHover="whileHover"
@@ -83,5 +82,3 @@ const MainMenu = () => {
 };
 
 export default MainMenu;
-
-    

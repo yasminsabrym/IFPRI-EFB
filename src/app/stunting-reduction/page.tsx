@@ -4,15 +4,27 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import TimeLineChart from '@/components/ui/chart';
+import TimeLineChart from '@/components/ui/chart'; // Assuming TimeLineChart is the default export
 
 const timelineData = [
-  { date: '2023-01-15', description: 'Program Launch: Kicked off the stunting reduction program.' },
-  { date: '2023-03-22', description: 'First Medical Checkup: Conducted the first round of medical checkups.' },
-  { date: '2023-05-10', description: 'Nutritional Support: Started providing nutritional support to families.' },
-  { date: '2023-07-18', description: 'Counseling Session: Held the first counseling session for parents.' },
-  { date: '2023-10-25', description: 'Mid-Program Review: Reviewed the program progress and made necessary adjustments.' },
-  { date: '2024-01-30', description: 'Final Evaluation: Conducted the final program evaluation.' },
+  {
+    name: 'Baseline (Birth)',
+    no: 57,
+    moderate: 29,
+    severe: 14,
+  },
+  {
+    name: '2 Months',
+    no: 78,
+    moderate: 14,
+    severe: 8,
+  },
+  {
+    name: '4 Months',
+    no: 73, // Using the provided figure for the subgroup at 4 months
+    moderate: 24,
+    severe: 2,
+  },
 ];
 
 const StuntingReduction = () => {
@@ -68,7 +80,7 @@ const StuntingReduction = () => {
 
       <Button
         className="mt-6 md:mt-8 transform transition-transform active:scale-95"
-        style={{ backgroundColor: '#003D6C', color: 'white' }}
+        style={{ backgroundColor: '#917555', color: 'white' }}
         onClick={() => router.push('/main-menu')}
       >
         BACK TO MAIN MENU
