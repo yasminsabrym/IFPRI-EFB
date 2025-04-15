@@ -54,7 +54,7 @@ const MainMenu = () => {
           <Button
             size="lg"
             className="w-full"
-            style={{backgroundColor: '#917555', color: 'white'}}
+            style={{backgroundColor: '#70C16E', color: 'white'}}
             onClick={() => router.push('/nsb-overview')}
             variants={buttonVariants}
             whileHover="whileHover"
@@ -67,7 +67,7 @@ const MainMenu = () => {
           <Button
             size="lg"
             className="w-full"
-            style={{backgroundColor: '#917555', color: 'white'}}
+            style={{backgroundColor: '#70C16E', color: 'white'}}
             onClick={() => router.push('/stunting-reduction')}
             variants={buttonVariants}
             whileHover="whileHover"

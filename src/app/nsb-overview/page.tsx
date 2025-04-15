@@ -228,7 +228,7 @@ const NSBOverview = () => {
 
       <Button
         className="mt-6 md:mt-8 transform transition-transform active:scale-95"
-        style={{backgroundColor: '#917555', color: 'white'}}
+        style={{backgroundColor: '#70C16E', color: 'white'}}
         onClick={() => router.push('/main-menu')}
       >
         BACK TO MAIN MENU
