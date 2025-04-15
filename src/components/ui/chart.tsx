@@ -18,9 +18,12 @@ import {useMediaQuery} from '@/hooks/use-media-query';
 import Image from 'next/image';
 
 const BaselineBaby = () => (
-  <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="50" cy="50" r="45" fill="#70C16E"/>
-  </svg>
+  <Image
+    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABGUlEQVR4nO2YTWrDQAyFdYmW9FTtMUpAPzC5XyKb1sHtKlnkKFkmTBOnrrHbrFxp0AfCAzMLvXkIaQwQBD6RDW5F8R28I0qnHOAdCSHGCEesEY5YIxyxRjhiDZeOsFIlG/pMb6+PU0LyXj7DSg1YRRTbS+K478T0hXyJUNxfz7RgFazwgZV2OVFWOojKUydkuLdaLxdgmfTz1q/f/vrbLfNg7/b74cKJv8S4FDEU41pER64HNzVhDlGshwVqN7AuQggrVbO6XAyphGJPty7vqJvf0xDz7AWewF9GFDdiUglDI46M6lNjvGlnWOmjiIcVKzVFPHWL+fkwRgixRjhijXDEGuGINYpxhJWOOcA7XPGLKD7/dx4BzMwZoh53q2biigUAAAAASUVORK5CYII="
+    alt="baseline"
+    width={80}
+    height={80}
+  />
 );
 
 const TwoMonthsBaby = () => {
