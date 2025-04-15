@@ -109,7 +109,7 @@ const TimeLineChart = ({
             whileHover={{scale: 1.1}}
             whileTap={{scale: 0.9}}
           >
-            <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border-4" style={{borderColor: '#003D6C'}}>
+            <div className="w-12 h-12 md:w-20 md:h-20 rounded-full border-4" style={{borderColor: '#70C16E'}}>
               {node.name === 'Baseline (Birth)' && <BaselineBaby />}
               {node.name === '2 Months' && <TwoMonthsBaby />}
               {node.name === '4 Months' && <FourMonthsBaby />}
