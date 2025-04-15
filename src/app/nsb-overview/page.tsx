@@ -197,8 +197,8 @@ const NSBOverview = () => {
               <Radar
                 name="Baseline"
                 dataKey="Baseline"
-                stroke="#999999"
-                fill="#999999"
+                stroke="#000000"
+                fill="#000000"
                 fillOpacity={0.6}
               />
               <Radar
@@ -221,7 +221,7 @@ const NSBOverview = () => {
         </motion.div>
         {/* Updated text color for better visibility */}
         <div className="text-sm text-gray-300 text-center">
-          • Baseline (Grey line) • Control Group Mid-Term (Red line) • NSB Mid-Term (Green line)
+          • Baseline (<span style={{color: '#000000'}}>Black line</span>) • Control Group Mid-Term (Red line) • NSB Mid-Term (Green line)
           <br />
           Tap any metric on the chart to learn more.
         </div>
