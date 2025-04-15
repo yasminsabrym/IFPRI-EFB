@@ -1,5 +1,3 @@
-'use client';
-
 import React, {useState} from 'react';
 import {Button} from '@/components/ui/button';
 import {useRouter} from 'next/navigation';
@@ -187,7 +185,8 @@ const NSBOverview = () => {
 
       <div className="w-full max-w-md md:max-w-xl">
         {/* Interactive Spider Chart */}
-        <motion.div variants={chartVariants} initial="hidden" animate="visible">
+        <motion.div variants={chartVariants} initial="hidden" animate="visible"
+          className="bg-gray-100 bg-opacity-20 rounded-lg p-3 md:p-4 mb-6 w-full max-w-2xl">
           <ResponsiveContainer width="100%" height={400}>
             <RadarChart data={data} cx="50%" cy="50%" outerRadius="80%">
               <PolarGrid gridType="circle" stroke="#555555" />

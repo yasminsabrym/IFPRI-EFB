@@ -46,6 +46,20 @@ const StuntingReduction = () => {
     },
   };
 
+  const chartVariants = {
+    hidden: { scale: 0.5, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+        damping: 20,
+        delay: 0.5,
+      },
+    },
+  };
+
   return (
     <motion.div
       className="flex flex-col items-center justify-start min-h-screen p-4 md:p-8 text-white"
@@ -75,7 +89,10 @@ const StuntingReduction = () => {
       </motion.div>
 
       <div className="w-full max-w-md md:max-w-xl">
-        <TimeLineChart data={timelineData} />
+        <motion.div variants={chartVariants} initial="hidden" animate="visible"
+          className="bg-gray-100 bg-opacity-20 rounded-lg p-3 md:p-4 mb-6 w-full max-w-2xl">
+          <TimeLineChart data={timelineData} />
+        </motion.div>
       </div>
 
       <Button
