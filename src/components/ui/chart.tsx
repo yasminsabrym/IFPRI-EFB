@@ -93,8 +93,9 @@ const TimeLineChart = ({
     );
   };
 
-  const chartHeight = isSmallScreen ? 200 : 300;
+  const chartHeight = isSmallScreen ? 150 : 300; // Adjusted height for better mobile view
   const xAxisFontSize = isSmallScreen ? '0.6rem' : '0.7rem';
+  const barWidth = isSmallScreen ? 15 : 30; // Adjusted bar width for mobile
 
   const orientation = isSmallScreen ? 'vertical' : 'horizontal';
 
@@ -142,7 +143,7 @@ const TimeLineChart = ({
                 />
                 <Tooltip contentStyle={{fontSize: isSmallScreen ? '0.5rem' : '0.7rem'}}/>
                 <Legend wrapperStyle={{fontSize: isSmallScreen ? '0.5rem' : '0.7rem'}} />
-                <Bar dataKey="value" className="bar" label={renderCustomizedLabel}>
+                <Bar dataKey="value" className="bar" label={renderCustomizedLabel} width={barWidth}>
                   {chartData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
