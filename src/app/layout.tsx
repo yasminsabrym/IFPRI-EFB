@@ -5,6 +5,7 @@ import ClientLayout from './client-layout';
 export const metadata: Metadata = {
   title: 'Data-Driven Hope',
   description: 'Interactive Touchscreen Exhibition',
+  viewport: 'width=device-width, initial-scale=1',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

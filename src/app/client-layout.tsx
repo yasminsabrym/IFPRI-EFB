@@ -63,6 +63,8 @@ export default function ClientLayout({children}: {children: React.ReactNode}) {
         .content {
           position: relative;
           z-index: 2; /* Ensure content is above video and overlay */
+          min-height: 100svh;
+          width: 100%;
         }
 
         .video-background {
@@ -92,7 +94,7 @@ export default function ClientLayout({children}: {children: React.ReactNode}) {
           width: 100%;
           height: 100%;
           background-color: #0a5d50;
-          opacity: 0.35;
+          opacity: 0.75;
           pointer-events: none;
           z-index: -99;
         }
@@ -136,3 +138,4 @@ export default function ClientLayout({children}: {children: React.ReactNode}) {
     </>
   );
 }
+
