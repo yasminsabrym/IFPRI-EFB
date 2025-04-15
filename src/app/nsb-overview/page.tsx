@@ -209,10 +209,12 @@ const NSBOverview = () => {
           <ResponsiveContainer width="100%" height={chartHeight} >
             <RadarChart data={chartData} cx="50%" cy="50%" outerRadius="80%">
               <PolarGrid gridType="circle" stroke="#555555" />
+              {/* Responsive font size for the subject labels */}
               <PolarAngleAxis
                 dataKey="subject"
                 stroke="#fff"
-                tick={{fontSize: isSmallScreen ? 8 : 12}} // Responsive font size
+                // Dynamically set the font size based on screen size
+                tick={{fontSize: isSmallScreen ? 8 : 12}}
                 onClick={(e) => handleSpokeClick(e.value)}
               />
               <PolarRadiusAxis angle={30} domain={[0, 'dataMax']} stroke="#fff" />
@@ -231,6 +233,7 @@ const NSBOverview = () => {
                 fillOpacity={0.6}
               />
               <Radar name="NSB" dataKey="NSB" stroke="#44BBA4" fill="#44BBA4" fillOpacity={0.6} />
+              {/* Responsive font size for the tooltip */}
               <Tooltip contentStyle={{fontSize: chartFontSize}} />
               <Legend
                 wrapperStyle={{
