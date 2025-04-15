@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   BarChart,
   Bar,
@@ -10,6 +10,8 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  LabelList,
+  Cell,
 } from 'recharts';
 import {Dialog, DialogContent, DialogHeader, DialogTitle} from '@/components/ui/dialog';
 import {motion} from 'framer-motion';
@@ -17,6 +19,22 @@ import {motion} from 'framer-motion';
 const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: number; severe: number}[]}) => {
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  const [isLandscape, setIsLandscape] = useState(false);
+
+  useEffect(() => {
+    const handleOrientationChange = () => {
+      setIsLandscape(window.innerWidth > window.innerHeight);
+    };
+
+    // Initial check
+    handleOrientationChange();
+
+    // Listen for changes
+    window.addEventListener('resize', handleOrientationChange);
+
+    // Clean up listener
+    return () => window.removeEventListener('resize', handleOrientationChange);
+  }, []);
 
   const handleNodeClick = (nodeName: string) => {
     setSelectedNode(nodeName);
@@ -28,11 +46,13 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
   }, []);
 
   const chartData = selectedNode
-    ? data.filter(item => item.name === selectedNode).map(item => [
-        {name: 'No Stunting', value: item.no},
-        {name: 'Moderate Stunting', value: item.moderate},
-        {name: 'Severe Stunting', value: item.severe},
-      ])[0]
+    ? data
+        .filter(item => item.name === selectedNode)
+        .map(item => [
+          {name: 'No Stunting', value: item.no, color: '#82ca9d'},
+          {name: 'Moderate Stunting', value: item.moderate, color: '#f0ad4e'},
+          {name: 'Severe Stunting', value: item.severe, color: '#d9534f'},
+        ])[0]
     : [];
 
   const containerVariants = {
@@ -51,18 +71,23 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
     },
   };
 
+  const barColors = ['#82ca9d', '#f0ad4e', '#d9534f'];
+
   return (
     <motion.div className="relative" variants={containerVariants} initial="hidden" animate="visible" exit="exit">
       <div className="flex flex-row items-center justify-around w-full py-4 overflow-x-auto">
         {data.map(node => (
-          <div key={node.name} className="flex flex-col items-center justify-center min-w-[100px]">
+          <div
+            key={node.name}
+            className="flex flex-col items-center justify-center min-w-[100px]"
+            onClick={() => handleNodeClick(node.name)}
+          >
             <motion.button
               className="w-12 h-12 md:w-20 md:h-20 rounded-full border-4 focus:outline-none"
               style={{borderColor: '#003D6C'}}
-              onClick={() => handleNodeClick(node.name)}
               whileHover={{scale: 1.1}}
               whileTap={{scale: 0.9}}
-            ></motion.button>
+            />
             <span className="mt-2 text-white text-xs md:text-sm whitespace-nowrap">{node.name}</span>
           </div>
         ))}
@@ -75,13 +100,18 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
           </DialogHeader>
           {selectedNode && chartData.length > 0 ? (
             <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={chartData}>
+              <BarChart data={chartData} layout={isLandscape ? 'horizontal' : 'vertical'}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <XAxis dataKey="name" type="category" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="value" fill="#8884d8" />
+                <Bar dataKey="value">
+                  {chartData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                  <LabelList dataKey="value" position="top" />
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           ) : (
@@ -89,21 +119,6 @@ const TimeLineChart = ({data}: {data: {name: string; no: number; moderate: numbe
           )}
         </DialogContent>
       </Dialog>
-
-      <style jsx>{`
-        .w-20 {
-          width: 80px;
-          height: 80px;
-        }
-        .h-96 {
-          height: 350px;
-        }
-        @media (min-width: 768px) {
-          .h-96 {
-            height: 250px;
-          }
-        }
-      `}</style>
     </motion.div>
   );
 };
