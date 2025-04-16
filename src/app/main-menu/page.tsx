@@ -28,12 +28,6 @@ const MainMenu = () => {
     window.addEventListener('keydown', resetTimer);
   }, [router]); // Add router as a dependency
 
-  // useEffect(() => {
-  //   // Prefetch the NSB overview page to improve loading speed
-  //   router.prefetch('/nsb-overview');
-  //   router.prefetch('/stunting-reduction');
-  // }, [router]);
-
   const buttonVariants = {
     hidden: {opacity: 0, y: 50},
     visible: {
