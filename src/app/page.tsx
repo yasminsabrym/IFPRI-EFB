@@ -3,6 +3,7 @@
 import React, {useEffect} from 'react';
 import {useRouter} from 'next/navigation';
 import {motion} from 'framer-motion';
+import {Logo} from '@/components/logo';
 
 const SplashPage = () => {
   const router = useRouter();
@@ -37,6 +38,7 @@ const SplashPage = () => {
       animate="visible"
       exit="exit"
     >
+      <Logo />
       <motion.h1
         className="text-4xl md:text-5xl font-semibold mb-4 text-center"
         style={{color: '#FF6301'}}
