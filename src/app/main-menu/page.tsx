@@ -52,6 +52,15 @@ const MainMenu = () => {
     whileTap: {scale: 0.95},
   };
 
+  // Instant navigation on tap
+  const handleNsbButtonClick = () => {
+    requestAnimationFrame(() => router.push('/nsb-overview'));
+  };
+
+  const handleStuntingButtonClick = () => {
+    requestAnimationFrame(() => router.push('/stunting-reduction'));
+  };
+
   return (
     <motion.div
       className="flex flex-col items-center justify-center min-h-screen p-6 text-white"
@@ -82,7 +91,7 @@ const MainMenu = () => {
             size="lg"
             className="w-full"
             style={{backgroundColor: '#70C16E', color: 'white'}}
-            onClick={() => router.push('/nsb-overview')} // Keep router.push for button click
+            onClick={handleNsbButtonClick}
             variants={buttonVariants}
             whileHover="whileHover"
             whileTap="whileTap"
@@ -95,7 +104,7 @@ const MainMenu = () => {
             size="lg"
             className="w-full"
             style={{backgroundColor: '#70C16E', color: 'white'}}
-            onClick={() => router.push('/stunting-reduction')} // Keep router.push for button click
+            onClick={handleStuntingButtonClick}
             variants={buttonVariants}
             whileHover="whileHover"
             whileTap="whileTap"
