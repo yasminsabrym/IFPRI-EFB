@@ -28,11 +28,11 @@ const MainMenu = () => {
     window.addEventListener('keydown', resetTimer);
   }, [router]); // Add router as a dependency
 
-  useEffect(() => {
-    // Prefetch the NSB overview page to improve loading speed
-    router.prefetch('/nsb-overview');
-    router.prefetch('/stunting-reduction');
-  }, [router]);
+  // useEffect(() => {
+  //   // Prefetch the NSB overview page to improve loading speed
+  //   router.prefetch('/nsb-overview');
+  //   router.prefetch('/stunting-reduction');
+  // }, [router]);
 
   const buttonVariants = {
     hidden: {opacity: 0, y: 50},
@@ -92,6 +92,8 @@ const MainMenu = () => {
             className="w-full"
             style={{backgroundColor: '#70C16E', color: 'white'}}
             onClick={handleNsbButtonClick}
+            whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+            whileTap={{ scale: 0.95 }}
           >
             NUTRITION-SENSITIVE BOX (NSB)
           </Button>
@@ -102,6 +104,8 @@ const MainMenu = () => {
             className="w-full"
             style={{backgroundColor: '#70C16E', color: 'white'}}
             onClick={handleStuntingButtonClick}
+            whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+            whileTap={{ scale: 0.95 }}
           >
             STUNTING REDUCTION
           </Button>
