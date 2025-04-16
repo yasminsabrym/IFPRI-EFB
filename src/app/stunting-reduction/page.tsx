@@ -1,9 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'; import Link from 'next/link';
 import TimeLineChart from '@/components/ui/chart'; // Assuming TimeLineChart is the default export
 import {Logo} from '@/components/logo';
 
@@ -29,7 +28,26 @@ const timelineData = [
 ];
 
 const StuntingReduction = () => {
-  const router = useRouter();
+  const [lastActive, setLastActive] = useState(Date.now());
+
+  useEffect(() => {
+    const events = ['mousemove', 'mousedown', 'keydown', 'touchstart'];
+    const updateLastActive = () => setLastActive(Date.now());
+
+    events.forEach(event => document.addEventListener(event, updateLastActive));
+    return () => {
+      events.forEach(event => document.removeEventListener(event, updateLastActive));
+    };
+  }, []);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      window.location.href = '/';
+    }, 15000); // 15 seconds
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [lastActive]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -97,13 +115,12 @@ const StuntingReduction = () => {
         </motion.div>
       </div>
 
-      <Button
-        className="mt-6 md:mt-8 transform transition-transform active:scale-95"
-        style={{ backgroundColor: '#70C16E', color: 'white' }}
-        onClick={() => router.push('/main-menu')}
-      >
-        BACK TO MAIN MENU
-      </Button>
+      <Link href="/main-menu" passHref>
+        <Button
+          className="mt-6 md:mt-8 transform transition-transform active:scale-95"
+          style={{ backgroundColor: '#70C16E', color: 'white' }}
+        >BACK TO MAIN MENU</Button>
+      </Link>
     </motion.div>
   );
 };

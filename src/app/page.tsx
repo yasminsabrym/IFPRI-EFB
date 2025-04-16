@@ -1,38 +1,36 @@
 'use client';
 
-import React, {useEffect} from 'react';
-import {useRouter} from 'next/navigation';
-import {motion} from 'framer-motion';
-import {Logo} from '@/components/logo';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
+import { Logo } from '@/components/logo';
 
 const SplashPage = () => {
   const router = useRouter();
 
+  // ✅ Preload main menu on mount
   useEffect(() => {
-    const timer = setTimeout(() => {
-      router.push('/main-menu'); // Navigate to the main menu after 3 seconds
-    }, 3000);
-
-    return () => clearTimeout(timer); // Clear timeout if the component unmounts
+    router.prefetch('/main-menu');
   }, [router]);
 
+  // ✅ Instant navigation on tap
+  const handleTap = () => {
+    requestAnimationFrame(() => router.push('/main-menu'));
+  };
+
   const containerVariants = {
-    hidden: {opacity: 0},
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        duration: 1,
-      },
+      transition: { duration: 1 },
     },
-    exit: {
-      opacity: 0,
-      transition: {duration: 0.5},
-    },
+    exit: { opacity: 0, transition: { duration: 0.5 } },
   };
 
   return (
     <motion.div
-      className="flex flex-col items-center justify-center min-h-screen text-white p-6"
+      onClick={handleTap}
+      className="flex flex-col items-center justify-center min-h-screen text-white p-6 cursor-pointer select-none"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -40,18 +38,25 @@ const SplashPage = () => {
     >
       <Logo />
       <motion.h1
-        className="text-4xl md:text-5xl font-semibold mb-4 text-center"
-        style={{color: '#FF6301'}}
-        initial={{y: -50, opacity: 0}}
-        animate={{y: 0, opacity: 1, transition: {duration: 0.8, delay: 0.3}}}
+        className="text-4xl md:text-5xl font-semibold mb-4 text-center handjet"
+        style={{ color: '#FF6301' }}
+        initial={{ y: -50, opacity: 0 }}
+        animate={{
+          y: 0,
+          opacity: 1,
+          transition: { duration: 0.8, delay: 0.3 },
+        }}
       >
         WANT TO KNOW HOW WE MEASURE SUCCESS?
       </motion.h1>
       <motion.p
         className="text-xl md:text-2xl text-center"
-        style={{color: '#F2F5FA'}}
-        initial={{opacity: 0}}
-        animate={{opacity: 0.8, transition: {duration: 0.8, delay: 0.5}}}
+        style={{ color: '#F2F5FA' }}
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: 0.8,
+          transition: { duration: 0.8, delay: 0.5 },
+        }}
       >
         Tap to explore our Impact
       </motion.p>
@@ -64,8 +69,11 @@ const SplashPage = () => {
           backgroundColor: '#F2F5FA',
           opacity: 0.1,
         }}
-        initial={{scale: 0}}
-        animate={{scale: 1, transition: {type: 'spring', stiffness: 100, damping: 20}}}
+        initial={{ scale: 0 }}
+        animate={{
+          scale: 1,
+          transition: { type: 'spring', stiffness: 100, damping: 20 },
+        }}
       />
     </motion.div>
   );

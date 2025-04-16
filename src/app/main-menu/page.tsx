@@ -1,13 +1,32 @@
 'use client';
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useRouter} from 'next/navigation';
-import {Button} from '@/components/ui/button';
+import {Button} from '../../components/ui/button';
 import {motion} from 'framer-motion'; // Import framer-motion
 import {Logo} from '@/components/logo';
 
 const MainMenu = () => {
   const router = useRouter();
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    const resetTimer = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        // Redirect to the splash screen after 15 seconds of inactivity
+        router.push('/');
+      }, 15000); // 15 seconds
+    };
+
+    // Initial call to set the timer
+    resetTimer();
+
+    // Set up event listeners for user activity
+    window.addEventListener('mousemove', resetTimer);
+    window.addEventListener('keydown', resetTimer);
+  }, [router]); // Add router as a dependency
 
   const buttonVariants = {
     hidden: {opacity: 0, y: 50},
@@ -36,7 +55,7 @@ const MainMenu = () => {
     >
       <Logo/>
       <motion.h1
-        className="text-4xl md:text-5xl font-semibold mb-4 text-center"
+        className="text-4xl md:text-5xl font-semibold mb-4 text-center handjet"
         style={{color: '#FF6301'}}
         initial={{y: -50, opacity: 0}}
         animate={{y: 0, opacity: 1, transition: {duration: 0.8, delay: 0.3}}}
@@ -57,7 +76,7 @@ const MainMenu = () => {
             size="lg"
             className="w-full"
             style={{backgroundColor: '#70C16E', color: 'white'}}
-            onClick={() => router.push('/nsb-overview')}
+            onClick={() => router.push('/nsb-overview')} // Keep router.push for button click
             variants={buttonVariants}
             whileHover="whileHover"
             whileTap="whileTap"
@@ -70,7 +89,7 @@ const MainMenu = () => {
             size="lg"
             className="w-full"
             style={{backgroundColor: '#70C16E', color: 'white'}}
-            onClick={() => router.push('/stunting-reduction')}
+            onClick={() => router.push('/stunting-reduction')} // Keep router.push for button click
             variants={buttonVariants}
             whileHover="whileHover"
             whileTap="whileTap"

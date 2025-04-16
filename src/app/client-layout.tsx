@@ -93,7 +93,7 @@ export default function ClientLayout({children}: {children: React.ReactNode}) {
           left: 0;
           width: 100%;
           height: 100%;
-          background-color: #0a5d50;
+          background-color: #182A28;
           opacity: 0.75;
           pointer-events: none;
           z-index: -99;
