@@ -130,4 +130,35 @@ body {
 }
 
 
-    
+/* Customize scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* Adjust width as needed */
+  height: 8px; /* Adjust height for horizontal scrollbar */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent; /* Make the track transparent */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: white; /* Color of the scrollbar handle */
+  border-radius: 4px; /* Rounded corners for the handle */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8; /* Darker color on hover */
+}
+
+/* Handle on active */
+::-webkit-scrollbar-thumb:active {
+    background: #888; /* Even darker color when clicked */
+}
+
+/* Corner */
+::-webkit-scrollbar-corner {
+  background: transparent; /* Make the corner transparent */
+}    
+
