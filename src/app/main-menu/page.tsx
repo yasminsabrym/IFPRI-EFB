@@ -15,9 +15,9 @@ const MainMenu = () => {
     const resetTimer = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
-        // Redirect to the splash screen after 15 seconds of inactivity
+        // Redirect to the splash screen after 25 seconds of inactivity
         router.push('/');
-      }, 15000); // 15 seconds
+      }, 25000); // 25 seconds
     };
 
     // Initial call to set the timer

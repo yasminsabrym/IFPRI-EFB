@@ -170,7 +170,7 @@ const NSBOverview = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         router.push('/');
-      }, 15000); // 15 seconds
+      }, 25000); // 25 seconds
     };
 
     window.addEventListener('mousemove', resetTimer);

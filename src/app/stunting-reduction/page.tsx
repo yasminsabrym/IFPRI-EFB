@@ -43,7 +43,7 @@ const StuntingReduction = () => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       window.location.href = '/';
-    }, 15000); // 15 seconds
+    }, 25000); // 25 seconds
     return () => {
       clearTimeout(timeoutId);
     };
