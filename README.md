@@ -1,5 +1,5 @@
-# Firebase Studio
+# IFPRI Website for The Egyptian Food Bank
 
-This is a NextJS starter in Firebase Studio.
+This Project is executed by Next.js, React Typescript.
 
-To get started, take a look at src/app/page.tsx.
+© 2025 All rights reserved Yasmin Sabry @ Egyptian Food Bank
