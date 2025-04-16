@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import TimeLineChart from '@/components/ui/chart'; // Assuming TimeLineChart is the default export
+import {Logo} from '@/components/logo';
 
 const timelineData = [
   {
@@ -68,6 +69,7 @@ const StuntingReduction = () => {
       animate="visible"
       exit="exit"
     >
+      <Logo />
       <motion.h1
         className="text-2xl md:text-3xl font-semibold mb-4 text-center"
         style={{ color: '#FF6301' }}
