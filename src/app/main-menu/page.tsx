@@ -54,11 +54,11 @@ const MainMenu = () => {
 
   // Instant navigation on tap
   const handleNsbButtonClick = () => {
-    requestAnimationFrame(() => router.push('/nsb-overview'));
+    router.push('/nsb-overview');
   };
 
   const handleStuntingButtonClick = () => {
-    requestAnimationFrame(() => router.push('/stunting-reduction'));
+    router.push('/stunting-reduction');
   };
 
   return (
@@ -92,9 +92,6 @@ const MainMenu = () => {
             className="w-full"
             style={{backgroundColor: '#70C16E', color: 'white'}}
             onClick={handleNsbButtonClick}
-            variants={buttonVariants}
-            whileHover="whileHover"
-            whileTap="whileTap"
           >
             NUTRITION-SENSITIVE BOX (NSB)
           </Button>
@@ -105,9 +102,6 @@ const MainMenu = () => {
             className="w-full"
             style={{backgroundColor: '#70C16E', color: 'white'}}
             onClick={handleStuntingButtonClick}
-            variants={buttonVariants}
-            whileHover="whileHover"
-            whileTap="whileTap"
           >
             STUNTING REDUCTION
           </Button>
