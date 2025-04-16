@@ -55,7 +55,7 @@ const MainMenu = () => {
     >
       <Logo/>
       <motion.h1
-        className="text-4xl md:text-5xl font-semibold mb-4 text-center handjet text-accent"
+        className="text-5xl md:text-6xl font-semibold mb-4 text-center handjet text-accent"
         initial={{y: -50, opacity: 0}}
         animate={{y: 0, opacity: 1, transition: {duration: 0.8, delay: 0.3}}}
       >
