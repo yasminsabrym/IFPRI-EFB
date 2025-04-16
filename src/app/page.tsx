@@ -10,12 +10,12 @@ const SplashPage = () => {
 
   // ✅ Preload main menu on mount
   useEffect(() => {
-    router.prefetch('/main-menu');
+   // router.prefetch('/main-menu');  Removed prefetching
   }, [router]);
 
   // ✅ Instant navigation on tap
   const handleTap = () => {
-    requestAnimationFrame(() => router.push('/main-menu'));
+     router.push('/main-menu');
   };
 
   const containerVariants = {

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion'; import Link from 'next/link';
 import TimeLineChart from '@/components/ui/chart'; // Assuming TimeLineChart is the default export
 import {Logo} from '@/components/logo';
+import { useRouter } from 'next/navigation';
 
 const timelineData = [
   {
@@ -28,6 +29,7 @@ const timelineData = [
 ];
 
 const StuntingReduction = () => {
+    const router = useRouter();
   const [lastActive, setLastActive] = useState(Date.now());
 
   useEffect(() => {
@@ -42,12 +44,12 @@ const StuntingReduction = () => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      window.location.href = '/';
+     router.push('/');
     }, 25000); // 25 seconds
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [lastActive]);
+  }, [lastActive, router]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
