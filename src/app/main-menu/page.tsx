@@ -48,11 +48,15 @@ const MainMenu = () => {
 
   // Instant navigation on tap
   const handleNsbButtonClick = () => {
-    router.push('/nsb-overview');
+    requestAnimationFrame(() => {
+      router.push('/nsb-overview');
+    });
   };
 
   const handleStuntingButtonClick = () => {
-    router.push('/stunting-reduction');
+    requestAnimationFrame(() => {
+      router.push('/stunting-reduction');
+    });
   };
 
   return (
