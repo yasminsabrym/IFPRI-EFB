@@ -38,8 +38,7 @@ const SplashPage = () => {
     >
       <Logo />
       <motion.h1
-        className="text-4xl md:text-5xl font-semibold mb-4 text-center handjet"
-        style={{ color: '#FF6301' }}
+        className="text-4xl md:text-5xl font-semibold mb-4 text-center handjet text-accent"
         initial={{ y: -50, opacity: 0 }}
         animate={{
           y: 0,

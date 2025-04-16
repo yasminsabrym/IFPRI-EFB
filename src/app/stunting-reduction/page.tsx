@@ -89,8 +89,7 @@ const StuntingReduction = () => {
     >
       <Logo />
       <motion.h1
-        className="text-2xl md:text-3xl font-semibold mb-4 text-center"
-        style={{ color: '#FF6301' }}
+        className="text-2xl md:text-3xl font-semibold mb-4 text-center handjet text-accent"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1, transition: { duration: 0.8, delay: 0.3 } }}
       >
