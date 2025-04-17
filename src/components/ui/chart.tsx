@@ -36,13 +36,6 @@ const TwoMonthsBaby = () => {
   );
 };
 
-const FourMonthsBaby = () => (
-  <Image
-src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAIJUlEQVR4nO1dZ6hcRRQejb0XsCv2LsSuKFYEK4r6FEtQVB5Jds+Zc1/s7VoQUQzqL9GoJNifiv+eipF7Zl8SLMGGGhMraCwYa4yJMb4n5+7bFN25Zffu3rL3g/23O3fm++aemVNmVqkSJUqUKFGiRIkSJUqUKFEiqxjwqvsi4ylYw5MHapW90+5PT+CaWddsSgZvIYNfk8HRNT/wJTFe68xxNky7n4WEnqX3IYZP/k/8mh/NOF+z3i/t/hYKyHg4GfgljPyVIhj8DjzYKe1+9yT5tEqEWtp971nyaaU5qp6W9hgKTb42WCMDc+zfgRlpj6Oo5K/AGl7a+D4x3thcIPg03ZFkDH2DfeOoVj1GGyBt4C6HcYpTg+Ndz10nDvnaq160eruTvcmbNDdB8HsqA80iyMAl/l69uan4kjyY4JjqEXHJF6CHxzb9PuNC1evoG+wbpw0+HG3nAn/HJb9qqrtpg181FwBmKtXrJsfg063uYtoivy4oqZ4mn+GJJMhffcFtAIdxF2L8IoD8HyV0oYqCyqzKDmiwSgzPkoF3NcPnxPA+Mc4mhkeFpMprla1XmR14Kq2ZT4wjmqvnqiLA8Zw9NcMzmuGfcBuOSzXDdM34fMj3PpCto2Z8M7BNxrkwBOvHIr+++7lOFQHE2E+MSxKYyauTOrthGoRcMjgU8puhhghRyBdhVRGgGe5IlPj/kN9A/9z+jYjhjTARJP7fM+STzPwukN/Ada/1bx4mQsgWtUDke5XDiHF5NwWIKkLhyXc9dx3Z4QQMdrEfQjDVI672Jm+HjHthDc8kxvvJ4KJURCgK+QJ/m2kdLCyA12EPZYGkAiUlqA380TURikT+lFenbCyZJMtAlw8wHBx522pwXudFgLdUkUCWkO4YYW6ctiYNT9pSG3y74yJ4MEEVAUIYWaKQkuTun9u/btw2tae3SEgEY/u9eOPidau8Qxu4xz7I1l36JERwvcs20AZftv3e8eAolWfQMO1OBpdZZv+sdttPSgSx+c1+KxsHlWcQwwsWUkaSml1JiKAZbrKYoVtVXiHpQKvpMfhcks9qRwR4AzbTDB9adkMVlVenSxt8x0LGMgl8Jf3MVkQQ8oMqH3RNH6nyCNsrTfW4yz0de24MEULJZ/jcHXXXVnmDhBI0w1+WhfcH2f5FbcuPZhp8TDP8WQ9dwyNhBbJRRQiu+ZGJoi9UecOAGdhZM3wbMLCJUdsK2CKujOG3JUIQ+QwPqbzB4cpBwak8MFFf6bD9eSdF0IxP5soBk4FKOME3E/ZX/jft6V0TIr9jIuSKfDJ0iGacFpZWlHyvjujxxiA/cRFyQb4f0/dgQpy4umYY6BD5jc/UsLbDRYCPs03+qFpLSkOkIDUyMVK+YeCGDpM/KsmaGFHUeba3FGqwv8oi/GoBxtfjLWTwe8JmZyigwiGSAI18gs1kiglSWQMaPE9ShfFmJAxGPcLjRiRf7Lztu9rAfXHGJHU9TQUw8PeU2RO3UVmBX+YdoWCq0XmJ70jSPWr7bgzyG78Zq/WZOpYjXiTkux+668UZlzh3muEny+S5SuWsbuczMng9Gdo+TvtuC+QnCTL4oMV0Tu/E8xKv25EdhVQstBIrcVMmX0AMZ3UqR9EWJPoXVKRUr0qAiuyKWmnfzQD5Ajn9bhHgPZUWJDfrVyTbifkaPTyw1fbdBD3cJGJWmTv3JYEy68xnnC+dbrVttwMebjuwHjtKqxxFbLmQbFmYvo0ax+m2h9sqtIEHMuULBBxEG5EbQ1pttxseblzQMB0QUGEXOVyeKIjxzqRzt930cKMCh/FQ//RN88m2PDVHjBheaS6APq6V9tLwcIMgzpr4NoE7vDR9AIv9X9FK1VpaHm5TjKq1qAbnRwgiLm5nnWsbzdOI8Evcdnw3PwP7fIFmfXQ99xu+3mhTvVylCW3gmyav5D9xEugCOdGYNvnkV+PBoGwgIi32MYuDOwJbsgIZT4/1ugdnx4Y6Sf5YavReWylkkwn2l2a4QmUBtkPP2sDjcXyJNAToG+wb5zBOlsPTkWb8WCxLe3q8ygpkJlg6uhRn4rbR28Fp3TRBNEy7SwAtMvH1tW5i5tKPzhxnK7tzEv1iooiL8NQk+kwMF0ROFjH+LIkY6Z/KKqQYydL5kThVYhG2oYva7SsZuDrG6fq7ZX1QWUf9sLLFUWFcoj19QkIiLGqnn9pUb44w40fEi091b98KxAGyzyb4IwkRdBserryJYdtLP1nk4bEqr6cZx9KMiYiQpIerPb1ryC5rmdj5zC2wcSFJFykrSUqEpEAMLwWYnIVSqaeKArkT01ZinoYIWsIKdvK/KORNtpJ0z4oIZPBFax+KfJdzFkRwZjo7SmS26fMZblJFh5RwpCkC2U/ZL44bLMz3mmBwaYAdXkKmelLSz3Xr8aWml+fJdZWql5DGm6Br+hzb86Je8FEodFMEVyo1rEddYY7qVXRLBGLUtmc4jBerXkanRdCeHh9Qxz8/995ulkXA+q21C63tNrlstWcRJoIfRY0RyqZ6PneBlXzGV1stDO5lEUYkqSMX8QW143hwKhn4PqCd3+Tt6N7IiiSCGUuOGHicTPWMhgMldUcOw4l+qCE4zLyCDJyd9jhzLwKtKcivkUtHPIC0x5cLSBlLUCibWvvcnva48ndnhK0A1sT4MC5Hg1emPZ5col4dAbfFMUm0Bvnwvlx7k/Y4cg8/0c/wUOiNt6tm/UdyVHT1fz4qkVTdEUvxF8yQP1YQE1U3U/CxFGv5b4tcD1bu8UuUKFGiRIkSJUqUUAniX+IZ9giIIzsUAAAAAElFTkSuQmCC" alt="baby-bottle"  width={80}
-    height={80}
-  />
-);
-
 const TimeLineChart = ({
   data,
 }: {
@@ -129,6 +122,7 @@ const TimeLineChart = ({
             <DialogTitle>{selectedNode}</DialogTitle>
           </DialogHeader>
           {chartData && chartData.length > 0 ? (
+            <>
             <ResponsiveContainer width="100%" height={chartHeight}>
               <BarChart data={chartData} layout={orientation}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -153,6 +147,8 @@ const TimeLineChart = ({
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
+            <p>This is the text chart for the bar chart.</p>
+            </>
           ) : (
             <p>No data available for {selectedNode}</p>
           )}
