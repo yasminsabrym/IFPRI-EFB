@@ -45,7 +45,7 @@ const StuntingReduction = () => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
      router.push('/');
-    }, 25000); // 25 seconds
+    }, 60000); // 25 seconds
     return () => {
       clearTimeout(timeoutId);
     };
