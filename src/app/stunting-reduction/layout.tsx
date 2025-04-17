@@ -1,7 +1,7 @@
 import type {Metadata} from 'next';
 
 export const metadata: Metadata = {
-  title: 'Data-Driven Hope',
+  title: 'EFB IFPRI Study',
   description: 'Interactive Touchscreen Exhibition',
 };
 

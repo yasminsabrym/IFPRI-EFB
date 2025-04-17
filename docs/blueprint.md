@@ -1,4 +1,4 @@
-# **App Name**: Data-Driven Hope
+# **App Name**: EFB IFPRI Study
 
 ## Core Features:
 

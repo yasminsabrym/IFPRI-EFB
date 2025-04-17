@@ -2,7 +2,7 @@ import './globals.css';
 import ClientLayout from './client-layout';
 
 export const metadata: Metadata = {
-  title: 'Data-Driven Hope',
+  title: 'EFB IFPRI Study',
   description: 'Interactive Touchscreen Exhibition',
   viewport: 'width=device-width, initial-scale=1',
 };
