@@ -19,6 +19,7 @@ import {motion} from 'framer-motion';
 import {useMediaQuery} from '@/hooks/use-media-query';
 import {Logo} from '@/components/logo';
 
+// INSERT HERE NSB CHART DATA NUMBERS
 const data = [
   {
     subject: 'HDDS',
@@ -56,7 +57,7 @@ const data = [
     // fullMark: 20,
   },
 ];
-
+// INSERT HERE NSB CHART POP-UP DATA
 const metricDetails = {
   HDDS: {
     title: 'HDDS (Household Dietary Diversity Score)',
